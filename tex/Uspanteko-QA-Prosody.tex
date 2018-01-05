@@ -1,0 +1,210 @@
+\documentclass[12pt]{article}
+
+% Fixing no room for new \dimen errors
+% http://www.tex.ac.uk/cgi-bin/texfaq2html?label=noroom
+\usepackage{etex}
+\reserveinserts{28}
+
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{epsfig}
+\usepackage{natbib}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{tipa}
+% \usepackage{OTtablx}
+\usepackage{marvosym}
+\usepackage{amssymb}
+\usepackage[normalem]{ulem}
+\usepackage{yfonts}
+\usepackage{qtree}
+\usepackage{tikz,tikz-qtree}
+\usepackage{linguex}
+%\usepackage{gb4e-modified}
+\usepackage[hidelinks=true]{hyperref}
+\usepackage{rotating}
+
+% Remove dashes for example letters in
+% linguex examples.
+%
+\renewcommand{\firstrefdash}{}
+\renewcommand{\secondrefdash}{}
+%\renewcommand{\refdash}{}      % for older versions of linguex, now deprecated.
+
+% IPA-related commands
+%
+\newcommand{\ipa}[1]{\textipa{#1}}
+\newcommand{\palj}{\super{j}}
+\newcommand{\asp}{\super{h}}
+\newcommand{\unre}{\textcorner}
+\newcommand{\er}{@\textrhoticity}
+\newcommand{\Er}{3\textrhoticity}
+\newcommand{\darkl}{\textsuperimposetilde{l}}
+\newcommand{\beltl}{\textbeltl}
+% Also \*l
+\newcommand{\paln}{\textltailn}
+% Also \*n
+
+% Phono-related example formatting commands
+%
+\newcommand{\Rank}[2]{{\sc #1} $\gg$ {\sc #2}}
+\newcommand{\UR}[1]{\textipa{/#1/}}
+\newcommand{\SR}[1]{\textipa{[#1]}}
+\newcommand{\spe}[3]{\ipa{#1} \rar \ipa{#2} / \ipa{#3} }
+\newcommand{\rar}{$\rightarrow$~}
+\newcommand{\F}[1]{{\sc [#1]}}
+\newcommand{\foc}{\underline{~~~}}
+\newcommand{\Fmat}[1]{$\left[\begin{array}{c}#1\end{array}\right]$}
+\newcommand{\angbr}[1]{$\langle$#1$\rangle$}
+\newcommand{\orth}[1]{\angbr{#1}}
+
+\newcommand{\nrm}[1]{\textnormal{#1}}
+
+
+% For marginal notes
+%
+\usepackage[prependcaption,colorinlistoftodos,textsize=scriptsize]{todonotes}
+    \newcommand{\todoins}[1]
+{\todo[caption=Insert,color=MidnightBlue]{#1}}
+  \newcommand{\tododisc}[1]
+{\todo[caption=Discussion,color=MidnightBlue]{#1}}
+        \newcommand{\todonote}[1]
+{\todo[caption=Note,color=MidnightBlue]{#1}}
+
+
+
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{enumitem}
+\setlist[1]{itemsep=4pt,topsep=6pt,partopsep=0pt,parsep=0pt}
+\setlist[2]{itemsep=4pt,topsep=6pt,partopsep=0pt,parsep=0pt}
+
+\usepackage[noindentafter]{titlesec}
+\titlespacing{\section}{0pt}{*2.5}{*.5}
+\titlespacing{\subsection}{0pt}{*2.5}{*.5}
+\titlespacing{\subsubsection}{0pt}{*2.5}{*.5}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+
+
+\newcommand{\skipline}{\vspace{\baselineskip}}
+\newcommand{\newL}{\skipline\noindent}
+\newcommand{\flag}[1]{{\color{BrickRed}{\textbf{#1}}}}
+
+\newcommand{\citepos}[1]{\citeauthor{#1}'s (\citeyear{#1})}
+\newcommand{\citeposb}[1]{\citeauthor{#1}'s \citeyear{#1}}
+
+
+\setlength{\headheight}{15pt}
+%Eliminates headheight warnings.
+
+
+
+%%%%%%%%%% Bibliography %%%%%%%%%
+%
+\bibliographystyle{linquiry2}
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+% No space between bibiliography entries.
+\setlength{\bibsep}{0pt}
+
+% Bullets
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{--}
+\renewcommand{\labelitemiv}{$\bullet$}
+
+
+
+% \usepackage{endnotes}
+% \let\footnote=\endnote
+% \let\thanks=\endnotetext % Turn thanks into an endnote
+% \renewcommand{\theendnote}{} % Suppress the numbering for the \thanks endnote
+
+\newcommand{\newpageB}{\newpage}
+%\newcommand{\newpageB}{}
+
+\usepackage{ragged2e}
+\setlength{\RaggedRightParindent}{\parindent}
+
+
+\title{Uspanteko Question-Answer Prosody
+%\\{\large \today}
+\thanks{We thank\ldots}
+}
+
+\author{Ryan Bennett and Robert Henderson}
+\date{}
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist 
+
+\nosinglegloss % Make glossed examples double-spaced, from cgloss4e.sty documentation, called by linguex.
+%\setlength{\Exredux}{0em}
+
+
+% Set document-level spacing
+% \linespread{2}
+%\linespread{1}
+%\usepackage{setspace}
+
+\begin{document}
+% \linespread{2}
+%\doublespacing
+\RaggedRight
+\maketitle
+% \vspace{-4\baselineskip}
+\setcounter{endnote}{0} % Reset endnote numbering for \thanks
+\renewcommand{\theendnote}{\arabic{endnote}} % Reset endnote numbering after \thanks
+\begin{abstract}
+\noindent
+This paper deals 
+\end{abstract}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\scat}{{\sc SubCat}}
+\newcommand{\wmin}{{\omega\nrm{\scriptsize\sc -Min}}}
+\newcommand{\wmax}{{\omega\nrm{\scriptsize\sc -Max}}}
+\newcommand{\wnonmin}{{\omega\nrm{\scriptsize\sc -NonMin}}}
+\newcommand{\wnonmax}{{\omega\nrm{\scriptsize\sc -NonMax}}}
+
+\section{Introduction}
+\label{introduction}
+
+
+\newpage
+\noindent
+Ryan Bennett\\
+University of California, Santa Cruz\\
+Dept. of Linguistics\\
+Stevenson Academic Building, Rm. 261\\
+Santa Cruz, CA 95064-1077\\
+\texttt{rbennett@ucsc.edu}\\
+% \texttt{http://pantheon.yale.edu/$\sim$rtb27/}\\
+
+
+\noindent
+Robert Henderson\\
+University of Arizona\\
+Dept. of Linguistics\\
+1103 E University Blvd.\\
+Tucson, AZ 85719\\
+\texttt{rhenderson@email.arizona.edu}\\
+\texttt{http://www.rhenderson.net/}
+
+
+\newpage
+\begingroup
+\parindent 0pt
+\parskip 2ex
+\def\enotesize{\normalsize}
+\theendnotes
+\endgroup
+
+
+\end{document}
