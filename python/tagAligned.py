@@ -6,8 +6,11 @@ import re
 annotedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/"
 alignedDir = "/Users/balamkej/Dropbox/andrea_usp_work/Forced_alignment/Resample/5000_epochs_QA_trained_only/"
 
-# allAlignedFiles = [f for f in listdir(alignedDir) if re.search(r'TextGrid', f)]
-# allExpFolders = [f for f in listdir(expDir) if re.search(r'S0', f)]
+allAnnotedGrid = [f for f in listdir(annotedDir) if re.search(r'TextGrid', f)]
+allAlignedGrid = [f for f in listdir(alignedDir) if re.search(r'TextGrid', f)]
+
+len(allAnnotedGrid)
+len(allAlignedGrid)
 
 # numberOfSpk = 5
 
