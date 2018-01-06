@@ -3,44 +3,9 @@ from os import walk, listdir
 from os.path import isfile, join
 import re
 
-annotedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/"
+annotatedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/"
 alignedDir = "/Users/balamkej/Dropbox/andrea_usp_work/Forced_alignment/Resample/5000_epochs_QA_trained_only/"
-
-allAnnotedGrid = [f for f in listdir(annotedDir) if re.search(r'TextGrid', f)]
-allAlignedGrid = [f for f in listdir(alignedDir) if re.search(r'TextGrid', f)]
-
-len(allAnnotedGrid)
-len(allAlignedGrid)
-
-# numberOfSpk = 5
-
-# alignedFilesBySpeaker = []
-# for i in range(1,numberOfSpk+1):
-#     speaker = 'S' + str(i).zfill(2)
-#     speakerFiles = [f for f in allAlignedFiles if re.search(speaker, f)]
-#     alignedFilesBySpeaker.append(speakerFiles)
-
-# rawFilesBySpeakers = []
-# for i in allExpFolders:
-#     directory = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/" + i
-#     rawFilesBySpeakers = rawFilesBySpeakers + [f for f in listdir(directory) if re.search(r'TextGrid', f)]
-
-# list.sort(allExpFolders)
-# list.sort(alignedFilesBySpeaker)
-
-# for i in alignedFilesBySpeaker:
-#     sort(i)
-
-# for i in range(numberOfSpk):
-#     expFile = expDir + allExpFolders[i] + rawFilesBySpeakers[i]
-#     alignedList = alignedFilesBySpeaker[i]
-#     tg = tgt.read_textgrid(expFile)
-#     annotations_tier = tg.get_tier_by_name('Annotations')
-#     for j in range(annotations_tier):
-#         alignedTextGrid = tgt.read_textgrid(alignedDir + alignedList[j])
-#         annotation = annotations_tier[j].text
-
-
+outDir = ""
 
 # A function that takes a textgrid and adds an annotation tier that matches
 # the annotation tier of an annotated textgrid. Note, the function assumes
@@ -57,9 +22,17 @@ def annotate(textGrid,annotatedTextGrid):
     textGrid.add_tier(tier)
     return textGrid
 
+allAnnotatedGrid = [f for f in listdir(annotatedDir) if re.search(r'TextGrid', f)]
+allAlignedGrid = [f for f in listdir(alignedDir) if re.search(r'TextGrid', f)]
 
+len(allAnnotatedGrid)
+len(allAlignedGrid)
 
+list.sort(allAnnotatedGrid)
+list.sort(allAlignedGrid)
 
-# expFile = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/" + "S01_Rosa_Petranilla" + "/" + "S01_Rosa_Petranilla_Mic1_OMNIDIR_Mic2_UNIDER.TextGrid"
-# tg = tgt.read_textgrid(expFile)
-# annotations_tier = tg.get_tier_by_name('Annotations')
+for i in range(allAnnotatedGrid):
+	annotatedTextGrid = tgt.read_textgrid(annotatedDir + allAnnotatedGrid[i])
+	alignedTextGrid = tgt,read_textgrid(alignedDir + allAlignedGrid[i])
+	outGrid = annotate(alignedTextGrid,annotatedTextGrid)
+	tgt.write_to_file(outGrid, outDir + allAlignedGrid[i] + '_annotated' + '.TextGrid', format='short')
