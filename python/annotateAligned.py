@@ -4,8 +4,8 @@ from os.path import isfile, join
 import re
 
 annotatedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/"
-alignedDir = "/Users/balamkej/Dropbox/andrea_usp_work/Forced_alignment/Resample/5000_epochs_QA_trained_only/"
-outDir = ""
+alignedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/Force_aligned/resample/"
+outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/Merged/"
 
 # A function that takes a textgrid and adds an annotation tier that matches
 # the annotation tier of an annotated textgrid. Note, the function assumes
