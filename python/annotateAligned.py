@@ -4,7 +4,7 @@ from os.path import isfile, join
 import re
 
 annotatedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/"
-alignedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/Force_aligned/resample/"
+alignedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/Forced_aligned/resample/"
 outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/Merged/"
 
 # A function that takes a textgrid and adds an annotation tier that matches
@@ -13,7 +13,7 @@ outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_anal
 # and end times.
 
 def annotate(textGrid,annotatedTextGrid):
-    annotation = annotations_tier[annotatedTextGrid].text
+    annotation = annotatedTextGrid.tiers[2][0].text
     st = textGrid.tiers[0].start_time
     et = textGrid.tiers[0].end_time
     interval = tgt.Interval(start_time=st, end_time=et, text=annotation)
@@ -25,14 +25,11 @@ def annotate(textGrid,annotatedTextGrid):
 allAnnotatedGrid = [f for f in listdir(annotatedDir) if re.search(r'TextGrid', f)]
 allAlignedGrid = [f for f in listdir(alignedDir) if re.search(r'TextGrid', f)]
 
-len(allAnnotatedGrid)
-len(allAlignedGrid)
-
 list.sort(allAnnotatedGrid)
 list.sort(allAlignedGrid)
 
-for i in range(allAnnotatedGrid):
+for i in range(len(allAnnotatedGrid)):
 	annotatedTextGrid = tgt.read_textgrid(annotatedDir + allAnnotatedGrid[i])
-	alignedTextGrid = tgt,read_textgrid(alignedDir + allAlignedGrid[i])
+	alignedTextGrid = tgt.read_textgrid(alignedDir + allAlignedGrid[i])
 	outGrid = annotate(alignedTextGrid,annotatedTextGrid)
 	tgt.write_to_file(outGrid, outDir + allAlignedGrid[i] + '_annotated' + '.TextGrid', format='short')
