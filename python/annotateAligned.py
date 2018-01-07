@@ -13,7 +13,7 @@ outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_anal
 # and end times.
 
 def annotate(textGrid,annotatedTextGrid):
-	utterance = annotatedTextGrid.tiers[2][0].text
+    utterance = annotatedTextGrid.tiers[2][0].text
     annotation = annotatedTextGrid.tiers[2][0].text
     st = textGrid.tiers[0].start_time
     et = textGrid.tiers[0].end_time
@@ -21,9 +21,10 @@ def annotate(textGrid,annotatedTextGrid):
     annInterval = tgt.Interval(start_time=st, end_time=et, text=annotation)
     uttTier = tgt.IntervalTier(start_time=st, end_time=et, name="Utterance")
     annTier = tgt.IntervalTier(start_time=st, end_time=et, name="Annotation")
-    tier.add_interval(uttInterval)
-    tier.add_interval(annInterval)
-    textGrid.add_tier(tier)
+    uttTier.add_interval(uttInterval)
+    annTier.add_interval(annInterval)
+    textGrid.add_tier(uttTier)
+    textGrid.add_tier(annTier)
     return textGrid
 
 allAnnotatedGrid = [f for f in listdir(annotatedDir) if re.search(r'TextGrid', f)]
@@ -33,7 +34,7 @@ list.sort(allAnnotatedGrid)
 list.sort(allAlignedGrid)
 
 for i in range(len(allAnnotatedGrid)):
-	annotatedTextGrid = tgt.read_textgrid(annotatedDir + allAnnotatedGrid[i])
-	alignedTextGrid = tgt.read_textgrid(alignedDir + allAlignedGrid[i])
-	outGrid = annotate(alignedTextGrid,annotatedTextGrid)
-	tgt.write_to_file(outGrid, outDir + allAlignedGrid[i] + '_annotated' + '.TextGrid', format='short')
+    annotatedTextGrid = tgt.read_textgrid(annotatedDir + allAnnotatedGrid[i])
+    alignedTextGrid = tgt.read_textgrid(alignedDir + allAlignedGrid[i])
+    outGrid = annotate(alignedTextGrid,annotatedTextGrid)
+    tgt.write_to_file(outGrid, outDir + allAlignedGrid[i] + '_merged' + '.TextGrid', format='short')
