@@ -13,12 +13,16 @@ outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_anal
 # and end times.
 
 def annotate(textGrid,annotatedTextGrid):
+	utterance = annotatedTextGrid.tiers[2][0].text
     annotation = annotatedTextGrid.tiers[2][0].text
     st = textGrid.tiers[0].start_time
     et = textGrid.tiers[0].end_time
-    interval = tgt.Interval(start_time=st, end_time=et, text=annotation)
-    tier = tgt.IntervalTier(start_time=st, end_time=et, name="Annotation")
-    tier.add_interval(interval)
+    uttInterval = tgt.Interval(start_time=st, end_time=et, text=utterance)
+    annInterval = tgt.Interval(start_time=st, end_time=et, text=annotation)
+    uttTier = tgt.IntervalTier(start_time=st, end_time=et, name="Utterance")
+    annTier = tgt.IntervalTier(start_time=st, end_time=et, name="Annotation")
+    tier.add_interval(uttInterval)
+    tier.add_interval(annInterval)
     textGrid.add_tier(tier)
     return textGrid
 
