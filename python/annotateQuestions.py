@@ -3,7 +3,8 @@ from os import walk, listdir
 from os.path import isfile, join
 import re
 
-annotatedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/"
+toAnnotateDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/resample/"
+outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/resample/out/"
 
 items = [
 "jtéleb7",
