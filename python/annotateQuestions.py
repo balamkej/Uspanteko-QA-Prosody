@@ -9,6 +9,50 @@ outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_anal
 allToAnnotate = [f for f in listdir(toAnnotateDir) if re.search(r'TextGrid', f)]
 textGrids = [[tgt.read_textgrid(toAnnotateDir + f), f] for f in allToAnnotate]
 
+items = [
+"jtéleb7",
+"xajab7",
+"suq7uk7",
+"cháaj",
+"jch7úuk7",
+"qálaq",
+"qapoop",
+"kaach7",
+"qajóoq7",
+"jkinaq7",
+"rixóqil",
+"qaxoot",
+"jcháaj",
+"rixóql",
+"kinaq7",
+"jkaach7",
+"jxajab7"
+]
+
+# items = [
+# 'JTLB', 
+# 'XJB', 
+# 'SQK', 
+# 'CHJ', 
+# 'JCHK', 
+# 'QLQ', 
+# 'QPP', 
+# 'KCH', 
+# 'QJQ', 
+# 'JKNQ', 
+# 'RXQL', 
+# 'QXT', 
+# 'JCHJ', 
+# 'RXQL', 
+# 'KNQ', 
+# 'JKCH', 
+# 'JXJB']
+
+def strip(string):
+    consonants = "BCDFGHJKLMNPQRSTVWXYZ"
+    string = string.upper()
+    string = ''.join([c for c in string if c in consonants])
+    return string
 
 # Sort textgrids into those that elicit broad and narrow answers.
 broad = []
@@ -32,6 +76,10 @@ for i in textGrids:
     else:
         broad.append(i)
 
+for i in broad:
+    st = i[0].start_time
+    et = i[0].end_time
+    words = [f.text for f in i[0].tiers[1]] # Get words in the words tier
 
 
 for i in narrow:
