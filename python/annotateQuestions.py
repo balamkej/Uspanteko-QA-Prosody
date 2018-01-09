@@ -32,7 +32,9 @@ for i in textGrids:
     else:
         broad.append(i)
 
-for i in broad:
+
+
+for i in narrow:
     tgt.write_to_file(i[0], outDir + i[1] + '_annotated' + '.TextGrid', format='short')
 
 
