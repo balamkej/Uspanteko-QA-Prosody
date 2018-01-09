@@ -9,44 +9,44 @@ outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_anal
 allToAnnotate = [f for f in listdir(toAnnotateDir) if re.search(r'TextGrid', f)]
 textGrids = [[tgt.read_textgrid(toAnnotateDir + f), f] for f in allToAnnotate]
 
-items = [
-"jtéleb7",
-"xajab7",
-"suq7uk7",
-"cháaj",
-"jch7úuk7",
-"qálaq",
-"qapoop",
-"kaach7",
-"qajóoq7",
-"jkinaq7",
-"rixóqil",
-"qaxoot",
-"jcháaj",
-"rixóql",
-"kinaq7",
-"jkaach7",
-"jxajab7"
-]
-
 # items = [
-# 'JTLB', 
-# 'XJB', 
-# 'SQK', 
-# 'CHJ', 
-# 'JCHK', 
-# 'QLQ', 
-# 'QPP', 
-# 'KCH', 
-# 'QJQ', 
-# 'JKNQ', 
-# 'RXQL', 
-# 'QXT', 
-# 'JCHJ', 
-# 'RXQL', 
-# 'KNQ', 
-# 'JKCH', 
-# 'JXJB']
+# "jtéleb7",
+# "xajab7",
+# "suq7uk7",
+# "cháaj",
+# "jch7úuk7",
+# "qálaq",
+# "qapoop",
+# "kaach7",
+# "qajóoq7",
+# "jkinaq7",
+# "rixóqil",
+# "qaxoot",
+# "jcháaj",
+# "rixóql",
+# "kinaq7",
+# "jkaach7",
+# "jxajab7"
+# ]
+
+items = [
+'JTLB', 
+'XJB', 
+'SQK', 
+'CHJ', 
+'JCHK', 
+'QLQ', 
+'QPP', 
+'KCH', 
+'QJQ', 
+'JKNQ', 
+'RXQL', 
+'QXT', 
+'JCHJ', 
+'RXQL', 
+'KNQ', 
+'JKCH', 
+'JXJB']
 
 def strip(string):
     consonants = "BCDFGHJKLMNPQRSTVWXYZ"
@@ -76,19 +76,41 @@ for i in textGrids:
     else:
         broad.append(i)
 
-for i in broad:
-    st = i[0].start_time
-    et = i[0].end_time
-    words = [f.text for f in i[0].tiers[1]] # Get words in the words tier
-
-
 for i in narrow:
-    tgt.write_to_file(i[0], outDir + i[1] + '_annotated' + '.TextGrid', format='short')
+    tgt.write_to_file(i[0], outDir + i[1] + '_annotated_narrow' + '.TextGrid', format='short')
 
+annBroad = []
+for i in broad:
+    tiers = i[0].tiers[1]
+    for j in tiers:
+        if strip(j.text) in items:
+            st = j.start_time
+            et = j.end_time
+            ann = "b-" + j.text
+            annInterval = tgt.Interval(start_time=st, end_time=et, text=ann)
+            annTier = tgt.IntervalTier(start_time=st, end_time=et, name="Question Type")
+            annTier.add_interval(annInterval)
+            i[0].add_tier(annTier)
+            annBroad.append(i)
+            break # only grab the first match
 
+for i in annBroad:
+    tgt.write_to_file(i[0], outDir + i[1] + '_annotated_broad' + '.TextGrid', format='short')
 
+narrowFiles = [f[1] for f in narrow]
+broadFiles = [f[1] for f in annBroad]
+allFiles = narrowFiles + broadFiles
 
+bad = []
+for i in allToAnnotate:
+    if i in allFiles:
+        pass
+    else:
+        bad.append(i)
 
+for i in bad:
+    print(i)
 
+# print(bad)
 
 # tg = tgt.read_textgrid(toAnnotateDir + allToAnnotate[0])
