@@ -6,7 +6,7 @@ import re
 annotatedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/"
 alignedDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/Forced_aligned/resample/"
 outDir = "/Users/balamkej/Dropbox/Uspanteko_NSF_project/Recordings/2017/For_analysis/Merged/"
-consonants = "BCDFGHJKLMNPQRSTVWXYZ"
+# consonants = "BCDFGHJKLMNPQRSTVWXYZ"
 
 # A function that takes a textgrid and adds an annotation tier that matches
 # the annotation tier of an annotated textgrid. Note, the function assumes
@@ -29,6 +29,7 @@ def annotate(textGrid,annotatedTextGrid):
     return textGrid
 
 def strip(string):
+    consonants = "BCDFGHJKLMNPQRSTVWXYZ"
     string = string.upper()
     string = ''.join([c for c in string if c in consonants])
     return string
