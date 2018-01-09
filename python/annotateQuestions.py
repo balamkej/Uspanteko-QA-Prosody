@@ -26,7 +26,9 @@ textGrids = [[tgt.read_textgrid(toAnnotateDir + f), f] for f in allToAnnotate]
 # "rixóql",
 # "kinaq7",
 # "jkaach7",
-# "jxajab7"
+# "jxajab7",
+# "sib7ooy",
+# "xájbla"
 # ]
 
 items = [
@@ -46,7 +48,9 @@ items = [
 'RXQL', 
 'KNQ', 
 'JKCH', 
-'JXJB']
+'JXJB',
+'SBY',
+'XJBL']
 
 def strip(string):
     consonants = "BCDFGHJKLMNPQRSTVWXYZ"
@@ -62,13 +66,19 @@ for i in textGrids:
     et = i[0].end_time
     words = [f.text for f in i[0].tiers[1]] # Get words in the words tier
     if "NEN" in words:
-        annInterval = tgt.Interval(start_time=st, end_time=et, text="n-nen")
+        annInterval = tgt.Interval(start_time=st, end_time=et, text="NEN-f")
+        annTier = tgt.IntervalTier(start_time=st, end_time=et, name="Question Type")
+        annTier.add_interval(annInterval)
+        i[0].add_tier(annTier)
+        narrow.append(i)
+    if "NEEN" in words:
+        annInterval = tgt.Interval(start_time=st, end_time=et, text="NEEN-f")
         annTier = tgt.IntervalTier(start_time=st, end_time=et, name="Question Type")
         annTier.add_interval(annInterval)
         i[0].add_tier(annTier)
         narrow.append(i)
     elif "LAMAS" in words:
-        annInterval = tgt.Interval(start_time=st, end_time=et, text="n-lamas")
+        annInterval = tgt.Interval(start_time=st, end_time=et, text="LAMAS-n")
         annTier = tgt.IntervalTier(start_time=st, end_time=et, name="Question Type")
         annTier.add_interval(annInterval)
         i[0].add_tier(annTier)
@@ -77,7 +87,15 @@ for i in textGrids:
         broad.append(i)
 
 for i in narrow:
-    tgt.write_to_file(i[0], outDir + i[1] + '_annotated_narrow' + '.TextGrid', format='short')
+    tgt.write_to_file(i[0], outDir + i[1] + '_annotated_focus' + '.TextGrid', format='short')
+
+def isFinal(tiers,tier):
+    for i in range(len(tiers)):
+        if tiers[i] == tier:
+            if tiers[i+1].text == "sp":
+                return True
+            else:
+                return False
 
 annBroad = []
 for i in broad:
@@ -86,7 +104,10 @@ for i in broad:
         if strip(j.text) in items:
             st = j.start_time
             et = j.end_time
-            ann = "b-" + j.text
+            if isFinal(tiers,j) == True:
+                ann =  j.text + "-g-l"
+            else:
+                ann = j.text + "-g-m"
             annInterval = tgt.Interval(start_time=st, end_time=et, text=ann)
             annTier = tgt.IntervalTier(start_time=st, end_time=et, name="Question Type")
             annTier.add_interval(annInterval)
@@ -95,7 +116,7 @@ for i in broad:
             break # only grab the first match
 
 for i in annBroad:
-    tgt.write_to_file(i[0], outDir + i[1] + '_annotated_broad' + '.TextGrid', format='short')
+    tgt.write_to_file(i[0], outDir + i[1] + '_annotated_given' + '.TextGrid', format='short')
 
 narrowFiles = [f[1] for f in narrow]
 broadFiles = [f[1] for f in annBroad]
@@ -109,7 +130,7 @@ for i in allToAnnotate:
         bad.append(i)
 
 for i in bad:
-    print(i)
+    print(i)    
 
 # print(bad)
 
